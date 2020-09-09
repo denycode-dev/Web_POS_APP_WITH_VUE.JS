@@ -1,5 +1,5 @@
 <template>
-<div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
+<div class="modal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -12,11 +12,11 @@
         <form>
             <div class="form-group">
                 <label for="formGroupExampleInput">Judul</label>
-                <input type="text" v-model="name" id="formGroupExampleInput" class="form-control" placeholder="Example input placeholder">
+                <input type="text" v-model="data.name" id="formGroupExampleInput" class="form-control" placeholder="Example input placeholder">
             </div>
             <div class="form-group">
                 <label for="formGroupExampleInput2">description</label>
-                <input type="text" v-model="price" class="form-control" id="formGroupExampleInput2" placeholder="Another input placeholder">
+                <input type="text" v-model="data.price" class="form-control" id="formGroupExampleInput2" placeholder="Another input placeholder">
             </div>
             <div class="form-group">
                 <label for="formGroupExampleInput2">gambar</label>
@@ -24,7 +24,7 @@
             </div>
             <div class="form-group">
                 <label for="formGroupExampleInput2">kategori</label>
-                <input type="text" v-model="idCategory" class="form-control" id="formGroupExampleInput2" placeholder="Another input placeholder">
+                <input type="text" v-model="data.idCategory" class="form-control" id="formGroupExampleInput2" placeholder="Another input placeholder">
             </div>
          </form>
       </div>

@@ -61,7 +61,15 @@ export default {
   },
   data () {
     return {
-      modalActive: true,
+      dataModal: {
+        id: null,
+        name: '',
+        price: '',
+        image: null,
+        idCategory: null
+      },
+      // data: 'modal',
+      modalActive: false,
       products: [],
       username: '',
       password: ''

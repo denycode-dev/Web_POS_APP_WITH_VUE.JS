@@ -60,7 +60,7 @@ export default new Vuex.Store({
         return response
       }, function (error) {
         console.log(error.response.result.message)
-        if (error.response.status_code === 201) {
+        if (error.response.status_code === 401) {
           console.log(error.response)
           if (error.response.result.message === 'incored password') {
             context.commit('setToken', null)
