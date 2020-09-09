@@ -37,7 +37,7 @@
       <AsideCard />
     </div>
     <ButtomNav />
-    <ModalAdd  v-show="modalActive" :closeModal="toggleModal"/>
+    <ModalAdd v-show="modalActive" :data="dataModal" @close-modal="toggleModal"/>
   </div>
 </template>
 

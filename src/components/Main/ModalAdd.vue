@@ -12,11 +12,11 @@
         <form>
             <div class="form-group">
                 <label for="formGroupExampleInput">Judul</label>
-                <input type="text" v-model="data.name" id="formGroupExampleInput" class="form-control" placeholder="Example input placeholder">
+                <input type="text" v-model="name" id="formGroupExampleInput" class="form-control" placeholder="Example input placeholder">
             </div>
             <div class="form-group">
                 <label for="formGroupExampleInput2">description</label>
-                <input type="text" v-model="data.price" class="form-control" id="formGroupExampleInput2" placeholder="Another input placeholder">
+                <input type="text" v-model="price" class="form-control" id="formGroupExampleInput2" placeholder="Another input placeholder">
             </div>
             <div class="form-group">
                 <label for="formGroupExampleInput2">gambar</label>
@@ -24,13 +24,13 @@
             </div>
             <div class="form-group">
                 <label for="formGroupExampleInput2">kategori</label>
-                <input type="text" v-model="data.idCategory" class="form-control" id="formGroupExampleInput2" placeholder="Another input placeholder">
+                <input type="text" v-model="idCategory" class="form-control" id="formGroupExampleInput2" placeholder="Another input placeholder">
             </div>
          </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" @click="$emit('close-modal')">Close</button>
-        <button type="button" class="btn btn-primary" @click="$emit('fire-event')">{{data.id ? 'Update Data': 'Insert Data'}}</button>
+        <button type="button" class="btn btn-primary" @click="$emit('fire-event')">{{data.id ? 'Update': 'Add'}}</button>
       </div>
     </div>
   </div>
