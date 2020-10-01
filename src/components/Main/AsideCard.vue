@@ -2,18 +2,19 @@
   <div class="col-lg-4 bg-test AsideCard">
     <div class="col-12 text-center">
       <div class="col-lg-auto text-center">
-        <div class="container mt-5">
+        <div class="container mt-5 overflow-auto height-style">
             <div class="row mt-5" v-for="item in getCart" :key="item.id">
                 <img :src="item.image" class="col-5">
                 <div class="col-7">
                     <h3>{{item.name}}</h3>
                     <div class="row mt-5">
                         <div class="col-8 row">
-                            <buttom class='buttonAside mx-auto col-3'>-</buttom>
+                            <!-- <buttom class='buttonAside mx-auto col-3'>-</buttom>
                             <input class='buttonAside1 mx-auto ml-1 mr-1 col-3 text-center' type="number" name="count" value="1" disabled>
-                            <buttom class='buttonAside mx-auto col-3'>+</buttom>
+                            <buttom class='buttonAside mx-auto col-3'>+</buttom> -->
+                            <b-form-spinbutton v-model="value" min="1" max="100"></b-form-spinbutton>
                         </div>
-                        <h5 class="col-3 mt-2">{{item.price}}</h5>
+                        <h5 class="col-3 mt-2">{{item.price * value}}</h5>
                     </div>
                 </div>
             </div>
@@ -29,6 +30,7 @@ export default {
   name: 'Cart',
   data () {
     return {
+      value: 1
     }
   },
   computed: {
@@ -46,7 +48,9 @@ export default {
   padding-bottom: 2px;
   padding-top: 2px;
 }
-
+.height-style {
+  max-height: 680px;
+}
 .buttonAside {
   margin: 0;
   color: #82DE3A;

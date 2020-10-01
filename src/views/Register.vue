@@ -1,8 +1,7 @@
-
 <template>
-  <div class="container">
-      <CardRegister class="backgroud"/>
-  </div>
+<div class="container">
+    <CardRegister class="backgroud" />
+</div>
 </template>
 
 <script>

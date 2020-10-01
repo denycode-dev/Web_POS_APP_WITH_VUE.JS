@@ -1,5 +1,5 @@
 <template>
-    <div class="kotak_login shadow-lg border-black bg-light w-50 h-75">
+    <div class="kotak_login shadow-lg border-black bg-white w-50 h-75">
         <form class="container">
             <div class="form-group text-left">
                 <form>

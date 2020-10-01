@@ -7,6 +7,7 @@ import Home from '../views/Home.vue'
 import Register from '../views/Register.vue'
 import Main from '../views/Main.vue'
 import History from '../views/History.vue'
+import Edit from '../views/Edit.vue'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,12 @@ const routes = [
     path: '/main',
     name: 'Main',
     component: Main,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/edit',
+    name: 'Edit',
+    component: Edit,
     meta: { requiresAuth: true }
   },
   {

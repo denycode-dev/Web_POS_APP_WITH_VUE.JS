@@ -118,6 +118,19 @@ export default new Vuex.Store({
             reject(err)
           })
       })
+    },
+    insertProduct (context, payload) {
+      return new Promise((resolve, reject) => {
+        axios.post(`${process.env.VUE_APP_BASE_URL}/products`, payload)
+          .then((res) => {
+            console.log(res)
+            resolve(res.data.result)
+          })
+          .reject((err) => {
+            console.log(err)
+            reject(err)
+          })
+      })
     }
   },
   getters: {

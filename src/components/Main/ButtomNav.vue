@@ -11,7 +11,7 @@
         </router-link>
         <router-link to='/main'>
             <img src="../../assets/icons/shopping-cart.svg" width="30" height="30" loading="lazy">
-            <span class="font-reguler num">0</span>
+            <b-badge variant="light">4</b-badge>
         </router-link>
     </div>
 </nav>

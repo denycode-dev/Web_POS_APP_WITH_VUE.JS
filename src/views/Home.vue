@@ -1,12 +1,14 @@
 <template>
-  <div class="container">
+<div class="container">
     <LogInCard />
-  </div>
+</div>
 </template>
 
 <script>
 import LogInCard from '../components/Home/LogInCard'
-import { mapActions } from 'vuex'
+import {
+  mapActions
+} from 'vuex'
 
 export default {
   name: 'Home',
