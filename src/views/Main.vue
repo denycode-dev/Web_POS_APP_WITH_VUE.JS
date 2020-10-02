@@ -161,7 +161,7 @@ export default {
 }
 
 .height-style {
-  max-height: 680px;
+  max-height: 980px;
 }
 
 @media (max-width: 720px) {

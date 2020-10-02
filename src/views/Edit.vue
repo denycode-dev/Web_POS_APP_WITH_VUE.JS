@@ -31,7 +31,7 @@
       <div class="container text-center">
         <div class="row row-cols-1 row-cols-md-3 ml-1 mr-2 height-style overflow-auto">
           <ItemCardEdit v-for="product in productstate" :item="product" :key="product.id" @select-product="addCart(product)" id="card" :per-page="perPage" :current-page="currentPage" @event-update="setUpdate"/>
-          <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="card"></b-pagination>
+          <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="card" class="justify-content-center fixed-bottom"></b-pagination>
         </div>
       </div>
     </div>
@@ -191,7 +191,7 @@ export default {
 }
 
 .height-style {
-  max-height: 680px;
+  max-height: 980px;
 }
 
 @media (max-width: 720px) {
