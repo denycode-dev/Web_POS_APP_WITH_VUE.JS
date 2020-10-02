@@ -3,28 +3,28 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Add Item</h5>
         <button type="button" class="close" @click="$emit('close-modal')" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <form>
-          <div class="form-group">
-            <label for="formGroupExampleInput">Name</label>
-            <input type="text" v-model="data.name" id="formGroupExampleInput" class="form-control" placeholder="Product Name">
+          <div class="form-group row">
+            <label class="col-4 mt-1 font-weight-bold">Name</label>
+            <input type="text" v-model="data.name" id="formGroupExampleInput" class="form-control col-8 ml-n5" placeholder="Product Name">
           </div>
-          <div class="form-group">
-            <!-- <label for="formGroupExampleInput2">image</label> -->
-            <input type="file" name="image" id="" @change="handleFile">
+          <div class="form-group row">
+            <label class="col-4 mt-1 font-weight-bold">image</label>
+            <input type="file" name="image" id="" @change="handleFile" class="col-8 ml-n5">
           </div>
-          <div class="form-group">
-            <label for="formGroupExampleInput2">Price</label>
-            <input type="number" v-model="data.price" class="form-control" id="formGroupExampleInput2" placeholder="Product Price">
+          <div class="form-group row">
+            <label class="col-4 mt-1 font-weight-bold">Price</label>
+            <input type="number" v-model="data.price" class="form-control col-8 ml-n5" id="formGroupExampleInput2" placeholder="Product Price">
           </div>
-          <div class="form-group">
-            <label for="formGroupExampleInput2">kategori</label>
-            <b-form-select v-model="data.idCategory" :options="options" class="mb-3">
+          <div class="form-group row">
+            <label class="col-4 mt-1 font-weight-bold">kategori</label>
+            <b-form-select v-model="data.idCategory" class="col-8 ml-n5">
               <!-- This slot appears above the options from 'options' prop -->
               <template>
                 <b-form-select-option :value="null" disabled>-- Please select Category --</b-form-select-option>
@@ -41,8 +41,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" @click="$emit('close-modal')">Close</button>
-        <button type="button" class="btn btn-primary" @click="$emit('fire-event')">{{data.id ? 'Update': 'Add'}}</button>
+        <button type="button" class="btn btn-lg btn-cancel" @click="$emit('close-modal')">Cancel</button>
+        <button type="button" class="btn btn-lg btn-add" @click="$emit('fire-event')">{{data.id ? 'Update': 'Add'}}</button>
       </div>
     </div>
   </div>
@@ -74,5 +74,17 @@ export default {
 <style scoped>
 .modal {
   display: block;
+}
+
+.btn-cancel {
+  background: #F24F8A;
+  border-radius: 10px;
+  color: white;
+}
+
+.btn-add {
+  background: #57CAD5;
+  border-radius: 10px;
+  color: white;
 }
 </style>

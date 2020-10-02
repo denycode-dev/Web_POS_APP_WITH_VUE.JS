@@ -7,7 +7,7 @@
     <div class="card-body">
         <h5 class="card-title">{{item.name}}</h5>
         <p class="card-text">Rp. {{item.price}}</p>
-        <b-button class="mr-2 rounded-lg" variant="primary">
+        <b-button class="mr-2 rounded-lg" variant="primary" @click="$emit('event-update', item)">
             <b-icon icon="pencil" variant="white"></b-icon> edit
         </b-button>
         <b-button class="rounded-lg" variant="danger" @click="showModal">
@@ -20,7 +20,7 @@
         </div>
         <div class="text-center">
             <b-button class="mt-3" variant="outline-success" @click="hideModal" id="show-btn">No Cancel</b-button>
-            <b-button class="mt-3 ml-5" variant="outline-danger">Yes Delete</b-button>
+            <b-button class="mt-3 ml-5" variant="outline-danger" @click="$emit('event-delete')">Yes Delete</b-button>
         </div>
     </b-modal>
 </div>

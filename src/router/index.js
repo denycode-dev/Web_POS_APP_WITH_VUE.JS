@@ -8,6 +8,7 @@ import Register from '../views/Register.vue'
 import Main from '../views/Main.vue'
 import History from '../views/History.vue'
 import Edit from '../views/Edit.vue'
+import CardProduct from '../views/CardProduct.vue'
 
 Vue.use(VueRouter)
 
@@ -28,7 +29,14 @@ const routes = [
     path: '/main',
     name: 'Main',
     component: Main,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
+    children: [
+      {
+        path: '/Card',
+        name: 'CardProduct',
+        component: CardProduct
+      }
+    ]
   },
   {
     path: '/edit',

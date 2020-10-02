@@ -131,6 +131,19 @@ export default new Vuex.Store({
             reject(err)
           })
       })
+    },
+    editProduct (context, payload) {
+      return new Promise((resolve, reject) => {
+        axios.patch(`${process.env.VUE_APP_BASE_URL}/products/` + payload.id, payload.data)
+          .then((res) => {
+            console.log(res)
+            resolve(res.data.result)
+          })
+          .reject((err) => {
+            console.log(err)
+            reject(err)
+          })
+      })
     }
   },
   getters: {
