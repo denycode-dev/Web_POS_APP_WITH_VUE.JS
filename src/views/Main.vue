@@ -4,20 +4,17 @@
   <aside />
   <div class="row mt-5 articleParent">
     <!-- =============    Aside Bar   ============= -->
-    <div class="col-lg-1">
+    <div class="col-lg-1 text-center pl-0 pr-0">
       <div class="sideBarLeft">
         <button type="button" class="btn btn-white style-bottom mt-5">
           <router-link to="/main">
-            <img src="../assets/icons/fork.svg" />
+            <img src="../assets/icons/fork.svg" width="50" height="50" loading="lazy" />
           </router-link>
         </button>
         <button type="button" class="btn btn-white style-bottom mt-5">
           <router-link to="/history">
-            <img src="../assets/icons/clipboard.svg" />
+            <img src="../assets/icons/clipboard.svg" width="50" height="50" loading="lazy" />
           </router-link>
-        </button>
-        <button type="button" class="btn btn-white style-bottom mt-5" @click="toggleModal">
-          <img src="../assets/icons/add.svg" />
         </button>
         <button type="button" class="btn btn-white style-bottom mt-5">
           <router-link to="/edit">
@@ -26,7 +23,7 @@
         </button>
       </div>
     </div>
-    <!-- =============    Aside Bar   ============= -->
+
     <div class="col-lg-7 bg-light pt-4">
       <div class="container text-center">
         <div class="row row-cols-1 row-cols-md-3 ml-1 mr-2 height-style overflow-auto">
@@ -35,7 +32,7 @@
         </div>
       </div>
     </div>
-    <AsideCard />
+    <AsideCard/>
   </div>
   <ButtomNav />
   <ModalAdd v-show="modalActive" :data="dataModal" @close-modal="toggleModal" @fire-event="addProduct" />
@@ -43,7 +40,6 @@
 </template>
 
 <script scoped>
-// import axios from 'axios'
 import Navbar from '../components/Main/Navbar'
 import ItemCard from '../components/Main/ItemCard'
 import ModalAdd from '../components/Main/ModalAdd'
@@ -73,9 +69,9 @@ export default {
         image: null,
         idCategory: null
       },
-      // data: 'modal',
       modalActive: false,
       products: [],
+      invoices: [],
       username: '',
       password: '',
       perPage: 9,
@@ -83,7 +79,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['getProduct', 'handleSearch', 'insertProduct']),
+    ...mapActions(['getProduct', 'handleSearch', 'insertProduct', 'getAllInvoice']),
     ...mapMutations(['addCart']),
     toggleModal () {
       this.modalActive = !this.modalActive
@@ -93,7 +89,6 @@ export default {
     },
     setSearch (e) {
       console.log(e)
-      // this.handleSearch(e.target.value)
       const url = `?search/${e.target.value}`
       this.getProduct(url)
     },
@@ -102,28 +97,26 @@ export default {
         return item.id === id
       })
     },
+    clearModal () {
+      this.dataModal.id = null
+      this.dataModal.name = ''
+      this.dataModal.price = ''
+      this.dataModal.image = null
+      this.dataModal.idCategory = null
+    },
     addProduct () {
       const data = new FormData()
       data.append('name', this.dataModal.name)
       data.append('image', this.dataModal.image)
       data.append('price', this.dataModal.price)
       data.append('idCategory', this.dataModal.idCategory)
-      // const data = {
-      //   name: this.dataModal.name,
-      //   price: this.dataModal.price,
-      //   image: this.dataModal.image,
-      //   idCategory: this.dataModal.idCategory
-      // }
+
       this.insertProduct(data)
         .then(res => {
-          this.dataModal.id = null
-          this.dataModal.name = ''
-          this.dataModal.price = ''
-          this.dataModal.image = null
-          this.dataModal.idCategory = null
+          this.data.modalActive = false
+          this.clearModal()
           this.getProduct()
           alert('add data success')
-          this.data.modalActive = false
         })
     }
   },
@@ -147,6 +140,9 @@ export default {
 </script>
 
 <style scoped>
+.scroll::-webkit-scrollbar {
+  display: none;
+}
 .articleParent {
   min-height: 720px;
 }
@@ -157,7 +153,6 @@ export default {
 
 .sideBarLeft {
   text-align: center;
-  margin-right: 10%;
 }
 
 .height-style {

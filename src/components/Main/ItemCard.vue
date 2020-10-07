@@ -6,7 +6,7 @@
     </div>
     <div class="card-body">
         <h5 class="card-title">{{item.name}}</h5>
-        <p class="card-text">Rp. {{item.price}}</p>
+        <p class="card-text">{{item.price | currency}}</p>
     </div>
   </div>
 </template>

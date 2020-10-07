@@ -10,19 +10,10 @@
         <b-button class="mr-2 rounded-lg" variant="primary" @click="$emit('event-update', item)">
             <b-icon icon="pencil" variant="white"></b-icon> edit
         </b-button>
-        <b-button class="rounded-lg" variant="danger" @click="showModal">
+        <b-button class="rounded-lg" variant="danger">
             <b-icon icon="trash" variant="white"></b-icon> delete
         </b-button>
     </div>
-    <b-modal ref="my-modal" hide-footer title="requires confirmation of action">
-        <div class="text-center">
-            <h3>Are you sure to delete this item!</h3>
-        </div>
-        <div class="text-center">
-            <b-button class="mt-3" variant="outline-success" @click="hideModal" id="show-btn">No Cancel</b-button>
-            <b-button class="mt-3 ml-5" variant="outline-danger" @click="$emit('event-delete')">Yes Delete</b-button>
-        </div>
-    </b-modal>
 </div>
 </template>
 

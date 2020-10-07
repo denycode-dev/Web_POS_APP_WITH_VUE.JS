@@ -1,41 +1,36 @@
 <template>
 <div class="home">
   <Navbar />
-  <aside />
   <div class="row mt-5 articleParent">
     <!-- =============    Aside Bar   ============= -->
-    <div class="col-lg-1">
-      <div class="sideBarLeft">
+      <div class="col-lg-1 text-center">
         <button type="button" class="btn btn-white style-bottom mt-5">
           <router-link to="/main">
-            <img src="../assets/icons/fork.svg" />
+            <img src="../assets/icons/fork.svg" width="50" height="50" loading="lazy" />
           </router-link>
         </button>
         <button type="button" class="btn btn-white style-bottom mt-5">
           <router-link to="/history">
-            <img src="../assets/icons/clipboard.svg" />
+            <img src="../assets/icons/clipboard.svg" width="50" height="50" loading="lazy" />
           </router-link>
         </button>
         <button type="button" class="btn btn-white style-bottom mt-5" @click="toggleModal">
-          <img src="../assets/icons/add.svg" />
-        </button>
-        <button type="button" class="btn btn-white style-bottom mt-5">
-          <router-link to="/edit">
-            <img src="../assets/icons/edit.svg" width="50" height="50" loading="lazy" />
-          </router-link>
+          <img src="../assets/icons/add.svg" width="50" height="50" loading="lazy" />
         </button>
       </div>
-    </div>
-    <!-- =============    Aside Bar   ============= -->
+
     <div class="col-lg-7 bg-light pt-4">
       <div class="container text-center">
         <div class="row row-cols-1 row-cols-md-3 ml-1 mr-2 height-style overflow-auto">
-          <ItemCardEdit v-for="product in productstate" :item="product" :key="product.id" @select-product="addCart(product)" id="card" :per-page="perPage" :current-page="currentPage" @event-update="setUpdate"/>
+          <ItemCardEdit v-for="product in productstate" :item="product" :key="product.id" @select-product="addCart(product)" id="card" :per-page="perPage" :current-page="currentPage" @event-update="setUpdate" @event-delete="setDelete"/>
           <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="card" class="justify-content-center fixed-bottom"></b-pagination>
         </div>
       </div>
     </div>
-    <!-- <AsideCard /> -->
+
+    <div class="col mt-5 text-center">
+      <h1>Edited Page</h1>
+    </div>
   </div>
   <ButtomNav />
   <ModalAdd v-show="modalActive" :data="dataModal" @close-modal="toggleModal" @fire-event="handleEventModal" />
@@ -43,12 +38,10 @@
 </template>
 
 <script scoped>
-// import axios from 'axios'
 import Navbar from '../components/Main/Navbar'
 import ItemCardEdit from '../components/Main/ItemCardEdit'
 import ModalAdd from '../components/Main/ModalAdd'
 import ButtomNav from '../components/Main/ButtomNav'
-// import AsideCard from '../components/Main/AsideCard'
 import {
   mapActions,
   mapGetters,
@@ -59,11 +52,9 @@ export default {
   name: 'Edit',
   components: {
     Navbar,
-    // ItemCard,
     ModalAdd,
     ButtomNav,
     ItemCardEdit
-    // AsideCard
   },
   data () {
     return {
@@ -74,13 +65,12 @@ export default {
         image: null,
         idCategory: null
       },
-      // data: 'modal',
       modalActive: false,
       products: [],
       username: '',
       password: '',
-      perPage: 9,
-      currentPage: 2
+      perPage: 3,
+      currentPage: 1
     }
   },
   methods: {
@@ -113,12 +103,13 @@ export default {
       data.append('price', this.dataModal.price)
       data.append('idCategory', this.dataModal.idCategory)
       const container = { id: this.dataModal.id, data: data }
+
       this.editProduct(container)
         .then(res => {
+          this.data.modalActive = false
           this.clearModal()
           this.getProduct()
           alert('add data success')
-          this.data.modalActive = false
         })
     },
     setUpdate (data) {
@@ -142,18 +133,13 @@ export default {
       data.append('image', this.dataModal.image)
       data.append('price', this.dataModal.price)
       data.append('idCategory', this.dataModal.idCategory)
-      // const data = {
-      //   name: this.dataModal.name,
-      //   price: this.dataModal.price,
-      //   image: this.dataModal.image,
-      //   idCategory: this.dataModal.idCategory
-      // }
+
       this.insertProduct(data)
         .then(res => {
+          this.modalActive = false
           this.clearModal()
           this.getProduct()
           alert('add data success')
-          this.data.modalActive = false
         })
     }
   },
@@ -183,11 +169,6 @@ export default {
 
 .mainHide {
   display: none;
-}
-
-.sideBarLeft {
-  text-align: center;
-  margin-right: 10%;
 }
 
 .height-style {

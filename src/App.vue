@@ -15,11 +15,20 @@ import {
   ,
   PaginationPlugin
 } from 'bootstrap-vue'
+import VueCurrencyFilter from 'vue-currency-filter'
+
+Vue.use(VueCurrencyFilter,
+  {
+    symbol: 'Rp.',
+    thousandsSeparator: '.',
+    fractionCount: 0,
+    fractionSeparator: ',',
+    symbolPosition: 'front',
+    symbolSpacing: true
+  })
 
 Vue.use(PaginationPlugin)
-// Install BootstrapVue
 Vue.use(BootstrapVue)
-// Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
 export default {
   name: 'App',

@@ -1,11 +1,12 @@
 <template>
 <div class="container">
-    <LogInCard />
+  <LogInCard />
 </div>
 </template>
 
 <script>
 import LogInCard from '../components/Home/LogInCard'
+
 import {
   mapActions
 } from 'vuex'
@@ -31,6 +32,9 @@ export default {
       this.login(data)
         .then(() => {
           this.$router.push('/')
+        })
+        .catch((err) => {
+          console.log(err)
         })
     },
     ...mapActions(['login'])

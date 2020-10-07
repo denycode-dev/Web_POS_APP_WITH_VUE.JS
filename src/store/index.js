@@ -2,7 +2,13 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import router from '../router/index'
+import Notifications from 'vue-notification'
+import velocity from 'velocity-animate'
 
+Vue.use(Notifications, {
+  velocity
+})
+const notifier = new Vue()
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -88,17 +94,26 @@ export default new Vuex.Store({
       })
     },
     login (context, payload) {
-      console.log(payload)
-      // console.log(payload)
       return new Promise((resolve, reject) => {
         axios.post(`${process.env.VUE_APP_BASE_URL}/users/login`, payload)
           .then((res) => {
-            console.log(res)
             context.commit('setUser', res.data.result)
             localStorage.setItem('token', res.data.result.token)
-            // axios.defaults.headers.common.Authorization = `Bearer ${res.data.result.token}`
             context.dispatch('interceptorsRequest')
             resolve(res.data.result[0])
+          })
+          .catch((err) => {
+            console.log(err)
+            reject(err)
+          })
+      })
+    },
+    register (context, payload) {
+      return new Promise((resolve, reject) => {
+        axios.post(`${process.env.VUE_APP_BASE_URL}/users/login`, payload)
+          .then((res) => {
+            console.log(res.data.result)
+            resolve(res.data.result)
           })
           .catch((err) => {
             console.log(err)
@@ -113,7 +128,20 @@ export default new Vuex.Store({
             context.commit('setProduct', res.data.result)
             resolve(res.data.result)
           })
-          .reject((err) => {
+          .catch((err) => {
+            console.log(err)
+            reject(err)
+          })
+      })
+    },
+    getAllInvoice (context) {
+      return new Promise((resolve, reject) => {
+        axios.get(`${process.env.VUE_APP_BASE_URL}/history/total`)
+          .then((res) => {
+            context.commit('getInvoice', res.data.result)
+            resolve(res.data.result)
+          })
+          .catch((err) => {
             console.log(err)
             reject(err)
           })
@@ -123,10 +151,10 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         axios.post(`${process.env.VUE_APP_BASE_URL}/products`, payload)
           .then((res) => {
-            console.log(res)
+            console.log(res.data.result)
             resolve(res.data.result)
           })
-          .reject((err) => {
+          .catch((err) => {
             console.log(err)
             reject(err)
           })
@@ -139,11 +167,27 @@ export default new Vuex.Store({
             console.log(res)
             resolve(res.data.result)
           })
-          .reject((err) => {
+          .catch((err) => {
             console.log(err)
             reject(err)
           })
       })
+    },
+    deleteProduct (context, payload) {
+      return new Promise((resolve, reject) => {
+        axios.delete(`${process.env.VUE_APP_BASE_URL}/products/` + payload.id)
+          .then((res) => {
+            console.log(res)
+            resolve(res.data.result)
+          })
+          .catch((err) => {
+            console.log(err)
+            reject(err)
+          })
+      })
+    },
+    notify (context, payload) {
+      notifier.$notify(payload)
     }
   },
   getters: {
