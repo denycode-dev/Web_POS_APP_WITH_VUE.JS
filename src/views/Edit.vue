@@ -30,6 +30,7 @@
 
     <div class="col mt-5 text-center">
       <h1>Edited Page</h1>
+      <h3>Please be carefull</h3>
     </div>
   </div>
   <ButtomNav />

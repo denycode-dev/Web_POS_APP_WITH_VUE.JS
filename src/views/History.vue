@@ -31,8 +31,8 @@
           <div>
             <div class="card-body">
               <p class="card-text">Orders</p>
-              <h5 class="card-title font-weight-bold">ghjj</h5>
-              <p class="card-text">+5% Last Week</p>
+              <h5 class="card-title font-weight-bold">{{getInvoiceMonth}}</h5>
+              <p class="card-text">{{getPercentMonth}}% Last Month</p>
             </div>
           </div>
         </div>
@@ -103,6 +103,11 @@ export default {
       const day = `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`
       return day
     },
+    converseMonth (data) {
+      const date = new Date(data)
+      const day = `${date.getMonth()}-${date.getFullYear()}`
+      return day
+    },
     converseDateYear (data) {
       const date = new Date(data)
       const day = `${date.getFullYear()}`
@@ -141,6 +146,28 @@ export default {
     },
     getPercent () {
       const percent = (this.getInvoiceToDay / this.getInvoiceYesterday) * 100
+      return Math.ceil(percent)
+    },
+    getInvoiceLastMonth () {
+      const date = new Date()
+      const day = `${date.getMonth() - 1}-${date.getFullYear()}`
+      console.log(day)
+      const InvoiceToday = this.history.filter(item => {
+        return this.converseMonth(item.date) === day
+      })
+      return InvoiceToday.length
+    },
+    getInvoiceMonth () {
+      const date = new Date()
+      const day = `${date.getMonth()}-${date.getFullYear()}`
+      console.log(day)
+      const InvoiceToday = this.history.filter(item => {
+        return this.converseMonth(item.date) === day
+      })
+      return InvoiceToday.length
+    },
+    getPercentMonth () {
+      const percent = (this.getInvoiceMonth / this.getInvoiceLastMonth) * 100
       return Math.ceil(percent)
     },
     getOrderLastYears () {

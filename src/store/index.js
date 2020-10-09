@@ -44,6 +44,16 @@ export default new Vuex.Store({
           return item.id !== payload.id
         })
       }
+    },
+    plusMinPrice (state, payload) {
+      console.log(payload.index)
+      const container = [...state.carts]
+      if (payload.type === '+') {
+        container[payload.index].count += 1
+      } else {
+        container[payload.index].count -= 1
+      }
+      state.carts = container
     }
   },
   actions: {

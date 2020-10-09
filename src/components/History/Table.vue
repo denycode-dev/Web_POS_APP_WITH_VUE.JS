@@ -17,7 +17,7 @@
       <tr v-for="item in dataHistory" :key='item.invoice'>
         <td :invoice="item.invoice" scope='row'>{{item.invoice}}</td>
         <td :cashierId="item.cashierId">{{item.cashierId}}</td>
-        <td :date="item.date">{{item.date | masa}}</td>
+        <td :date="item.date">{{item.date}}</td>
         <td :orderOn="item.orderOn">{{item.orderOn}}</td>
         <td :amout="item.amout">{{item.amout | currency}}</td>
       </tr>
@@ -27,8 +27,6 @@
 </template>
 
 <script scoped>
-import { masa } from 'masa'
-masa().format()
 export default {
   name: 'Table',
   props: [

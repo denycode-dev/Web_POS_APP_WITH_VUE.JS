@@ -3,25 +3,27 @@
   <div class="col-12 text-center ">
     <div class="col-lg-auto text-center">
       <div class="container mt-4 overflow-auto height-style AsideCard">
-        <div class="row mt-2" v-for="item in getCart" :key="item.id">
+        <div class="row mt-2" v-for="(item,index) in getCart" :key="item.id">
           <img :src="item.image" class="col-5 image">
           <div class="col-7 text-left">
             <h4 class="">{{item.name}}</h4>
             <div class="row mt-4">
-              <div class="col-7 row text-center border-success">
-                <b-button class="col-lg-3 btn-success font-weight-bold rounded-lg">+</b-button>
-                <b-input value="1" class="col-3 ml-2"></b-input>
-                <b-button class="col-lg-3 ml-2 btn-success font-weight-bold rounded-lg">-</b-button>
+              <div class="col-7 text-center row p-0 ml-2">
+                <b-button class="col-3 btn-success font-weight-bold btn-sm p-0" @click="plusMinPrice({type: '+', index})">+</b-button>
+                  <h5 class="col-4 mt-2 border-yellow">{{item.count}}</h5>
+                <b-button class="col-3 btn-success font-weight-bold btn-sm p-0" @click="plusMinPrice({type: '-', index})">-</b-button>
               </div>
-              <p class="col-5 count font-weight-bold">Rp.{{item.price * value}}</p>
+              <p class="col-5 count font-weight-bold">Rp.{{item.price * item.count}}</p>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="mt-5">
-      <b-button block variant="primary" class="rounded">Block Level Button</b-button>
-      <b-button block variant="danger" class="rounded">Block Level Button</b-button>
+    <div class="mt-5 text-left">
+      <h5>Total : <span class="text-right">Rp. 105.000</span></h5>
+      <p>*Belum termasuk ppn</p>
+      <b-button block class="rounded btn-checkout">Checkout</b-button>
+      <b-button block class="rounded btn-cancel">Cancel</b-button>
     </div>
   </div>
 </div>
@@ -29,7 +31,8 @@
 
 <script>
 import {
-  mapGetters
+  mapGetters,
+  mapMutations
 } from 'vuex'
 export default {
   name: 'Cart',
@@ -38,6 +41,9 @@ export default {
       value: 1
 
     }
+  },
+  methods: {
+    ...mapMutations(['plusMinPrice'])
   },
   // methods: {
   //   countPrice () {
@@ -53,6 +59,12 @@ export default {
 </script>
 
 <style scoped>
+.btn-checkout {
+  background-color: #57CAD5;
+}
+.btn-cancel {
+  background-color: #F24F8A;
+}
 .buttonAside1 {
   margin: 0;
   color: #82DE3A;
@@ -64,7 +76,8 @@ export default {
 }
 
 .height-style {
-  max-height: 680px;
+  min-height: 480px;
+  max-height: 480px;
 }
 
 .buttonAside {
