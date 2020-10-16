@@ -4,16 +4,16 @@
   <div class="row mt-5">
     <!-- =============    Aside Bar   ============= -->
     <div class="col-lg-1 sideBarLeft text-center pr-0 pl-0">
-        <button type="button" class="btn btn-white style-bottom mt-5">
-          <router-link to="/main">
-            <img src="../assets/icons/fork.svg" width="50" height="50" loading="lazy" />
-          </router-link>
-        </button>
-        <button type="button" class="btn btn-white style-bottom mt-5">
-          <router-link to="/history">
-            <img src="../assets/icons/clipboard.svg" width="50" height="50" loading="lazy" />
-          </router-link>
-        </button>
+      <button type="button" class="btn btn-white style-bottom mt-5">
+        <router-link to="/main">
+          <img src="../assets/icons/fork.svg" width="50" height="50" loading="lazy" />
+        </router-link>
+      </button>
+      <button type="button" class="btn btn-white style-bottom mt-5">
+        <router-link to="/history">
+          <img src="../assets/icons/clipboard.svg" width="50" height="50" loading="lazy" />
+        </router-link>
+      </button>
     </div>
 
     <div class="col-lg-11 col-sm-12 bg-light">
@@ -49,7 +49,8 @@
           <h3 class="mt-3 ml-3">Revenue</h3>
           <Chart class="w-100" />
         </div>
-        <Table :dataHistory="history" :fields="fields" class='shadow-lg col-12 mt-5 w-100' />
+        <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table" class="mt-5"></b-pagination>
+        <Table :dataHistory="history" :fields="fields" class='shadow-lg col-12 w-100' id="my-table" :per-page="perPage" :current-page="currentPage" small />
         <ButtomNav />
       </div>
     </div>
@@ -66,7 +67,8 @@ import Table from '../components/History/Table'
 import ButtomNav from '../components/Main/ButtomNav'
 import Chart from '../components/History/Chart'
 import {
-  mapActions, mapGetters
+  mapActions,
+  mapGetters
 } from 'vuex'
 
 export default {
@@ -81,11 +83,8 @@ export default {
   data () {
     return {
       history: [],
-      fields: [{
-        key: 'date',
-        label: 'Date',
-        sortable: true
-      }]
+      perPage: 3,
+      currentPage: 2
     }
   },
   mounted () {
@@ -151,7 +150,6 @@ export default {
     getInvoiceLastMonth () {
       const date = new Date()
       const day = `${date.getMonth() - 1}-${date.getFullYear()}`
-      console.log(day)
       const InvoiceToday = this.history.filter(item => {
         return this.converseMonth(item.date) === day
       })
@@ -160,7 +158,6 @@ export default {
     getInvoiceMonth () {
       const date = new Date()
       const day = `${date.getMonth()}-${date.getFullYear()}`
-      console.log(day)
       const InvoiceToday = this.history.filter(item => {
         return this.converseMonth(item.date) === day
       })

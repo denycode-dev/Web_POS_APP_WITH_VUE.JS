@@ -1,7 +1,7 @@
 <template>
-  <div class="col mb-4">
+  <div class="col mb-4 pt-4">
     <div class="position-relative listening">
-        <!-- <div class="filter"></div> -->
+        <div :class="active ? 'filter':''" @click="$emit('select-product')"></div>
         <img :src="item.image" class="card-img-top rounded-top image shadow-lg" @click="$emit('select-product')"/>
     </div>
     <div class="card-body">
@@ -17,6 +17,9 @@ export default {
   props: {
     item: {
       type: Object
+    },
+    active: {
+      type: Boolean
     }
   }
 }

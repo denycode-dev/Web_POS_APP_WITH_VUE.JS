@@ -27,12 +27,12 @@
     <div class="col-lg-7 bg-light pt-4">
       <div class="container text-center">
         <div class="row row-cols-1 row-cols-md-3 ml-1 mr-2 height-style overflow-auto">
-          <ItemCard v-for="product in productstate" :item="product" :key="product.id" @select-product="addCart(product)" id="card" :per-page="perPage" :current-page="currentPage" />
+          <ItemCard v-for="product in productstate" :item="product" :key="product.id" @select-product="addCart(product)" :active="checkProductActive(product.id)" id="card" :per-page="perPage" :current-page="currentPage" />
           <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="card" align="center" class="fixed-bottom"></b-pagination>
         </div>
       </div>
     </div>
-    <AsideCard/>
+    <AsideCard :egptyCart="checkCart" :Cart="checkCart"/>
   </div>
   <ButtomNav />
   <ModalAdd v-show="modalActive" :data="dataModal" @close-modal="toggleModal" @fire-event="addProduct" />
@@ -75,7 +75,9 @@ export default {
       username: '',
       password: '',
       perPage: 9,
-      currentPage: 2
+      currentPage: 2,
+      egptyCart: false,
+      Cart: false
     }
   },
   methods: {
@@ -96,6 +98,15 @@ export default {
       return this.getCart.find(item => {
         return item.id === id
       })
+    },
+    checkCart () {
+      if (this.countCart === !undefined) {
+        this.egptyCart = true
+        this.Cart = false
+      } else {
+        this.egptyCart = false
+        this.Cart = true
+      }
     },
     clearModal () {
       this.dataModal.id = null
@@ -143,6 +154,7 @@ export default {
 .scroll::-webkit-scrollbar {
   display: none;
 }
+
 .articleParent {
   min-height: 720px;
 }

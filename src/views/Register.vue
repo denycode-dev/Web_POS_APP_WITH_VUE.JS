@@ -1,6 +1,7 @@
 <template>
 <div class="container">
-    <CardRegister class="backgroud" />
+    <CardRegister :data="dataRegister" @fire-event="addRegister" class="backgroud" />
+    <notifications animation-type="velocity" position="top left" class="mt-5 ml-5"/>
 </div>
 </template>
 
@@ -39,11 +40,22 @@ export default {
       data.append('password', this.dataRegister.password)
       data.append('roleId', this.dataRegister.roleId)
 
-      this.insertProduct(data)
+      this.register(data)
         .then(res => {
+          this.$store.dispatch('notify', 'Register Success')
+          this.clearData()
           this.$router.push('/')
-          alert('add data success')
         })
+    },
+    clearData () {
+      this.dataRegister.id = null
+      this.dataRegister.name = ''
+      this.dataRegister.image = null
+      this.dataRegister.tlpNumber = ''
+      this.dataRegister.email = ''
+      this.dataRegister.tlpNumber = ''
+      this.dataRegister.roleId = null
+      this.dataRegister.password = ''
     }
   }
 }

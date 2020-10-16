@@ -19,20 +19,14 @@
         if you do not know your division password click forgot password
       </small>
     </div>
-    <div class="form-group form-check">
-      <input type="radio" class="form-check-input">
-      <label class="form-check-label font-weight-light text-muted">
-        Remember me
-      </label>
-    </div>
     <button type="submit" class="btn btn-style btn-lg btn-block mt-5 text-white" @click="handleLogin">
       LOGIN
     </button>
-    <div class="text-center mt-3">
+    <!-- <div class="text-center mt-3">
       <router-link class="font-weight-light text-reset text-muted" to="">
         Forgot your password?
       </router-link>
-    </div>
+    </div> -->
   </form>
   <div class="text-center mt-3">
     <p class="font-weight-light text-muted">

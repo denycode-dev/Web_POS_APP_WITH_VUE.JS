@@ -118,9 +118,21 @@ export default new Vuex.Store({
           })
       })
     },
+    // LogOut () {
+    //   return new Promise((resolve, reject) => {
+    //     localStorage.removeItem('token')
+    //       .then((res) => {
+    //         resolve(res)
+    //       })
+    //       .catch((err) => {
+    //         console.log(err)
+    //         reject(err)
+    //       })
+    //   })
+    // },
     register (context, payload) {
       return new Promise((resolve, reject) => {
-        axios.post(`${process.env.VUE_APP_BASE_URL}/users/login`, payload)
+        axios.post(`${process.env.VUE_APP_BASE_URL}/users/register`, payload)
           .then((res) => {
             console.log(res.data.result)
             resolve(res.data.result)

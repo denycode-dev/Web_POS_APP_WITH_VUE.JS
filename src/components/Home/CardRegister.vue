@@ -1,5 +1,5 @@
 <template>
-<div class="kotak_login shadow-lg border-black bg-white w-50 h-75">
+<div class="kotak_login shadow-lg border-black bg-white">
   <form class="container">
     <div class="form-group text-left">
       <form>
@@ -15,7 +15,7 @@
       <label class="font-weight-bold mb-3">
         Full Name
       </label>
-      <input type="text" class="form-control" >
+      <input type="text" v-model="data.name" class="form-control">
       <small id="emailHelp" class="form-text text-muted font-weight-light">
         Please enter the name according to the ID card name data registered with the management
       </small>
@@ -24,19 +24,28 @@
       <label class="font-weight-bold mb-3">
         Email
       </label>
-      <input type="email" class="form-control" aria-describedby="emailHelp">
+      <input type="email" v-model="data.email" class="form-control" aria-describedby="emailHelp">
     </div>
     <div class="form-group text-left">
       <label class="font-weight-bold mb-3">
         Whatsapp Number
       </label>
-      <input type="number" class="form-control" >
+      <input type="number" v-model="data.tlpNumber" class="form-control">
     </div>
     <div class="form-group text-left">
       <label class="font-weight-bold mb-3">
         Your Division
       </label>
-      <input type="text" class="form-control" >
+      <b-form-select v-model="data.roleId">
+        <!-- This slot appears above the options from 'options' prop -->
+        <template>
+          <b-form-select-option :value="null" disabled>-- Please select your division --</b-form-select-option>
+        </template>
+        <b-form-select-option value=1>Cashier</b-form-select-option>
+        <b-form-select-option value=2>SuperVisor</b-form-select-option>
+        <b-form-select-option value=2>Management</b-form-select-option>
+        <b-form-select-option value=3>User</b-form-select-option>
+      </b-form-select>
       <small class="form-text text-muted font-weight-light">
         enter your position such as cashier, head of shop, or managerial
       </small>
@@ -45,11 +54,11 @@
       <label class="font-weight-bold mb-3">
         Password
       </label>
-      <input class="form-control" >
+      <input type="password" v-model="data.password" class="form-control">
     </div>
-    <router-link to='/main' type="button" class="btn btn-style btn-lg btn-block mt-5 text-white">
+    <b-button type="button" class="btn btn-style btn-lg btn-block mt-5 text-white" @click="$emit('fire-event')">
       REGISTER
-    </router-link>
+    </b-button>
     <div class="text-center mt-4">
       <router-link class="font-weight-light text-reset text-muted" to="/">
         Back to Login
@@ -63,7 +72,17 @@
 export default {
   name: 'cardregister',
   props: {
-    type: Object
+    data: {
+      type: Object,
+      return: {
+        selected: null
+      }
+    }
+  },
+  methods: {
+    handleFotoProfile (e) {
+      this.data.image = e.target.files[0]
+    }
   }
 }
 </script>
@@ -82,6 +101,15 @@ export default {
 @media (max-width: 520px) {
   .kotak_login {
     width: 100%;
+  }
+
+  .text-muted {
+    display: none;
+  }
+}
+@media (max-width: 720px) {
+  .kotak_login {
+    width: 80%;
   }
 
   .text-muted {
