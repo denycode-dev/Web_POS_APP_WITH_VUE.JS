@@ -32,14 +32,10 @@
           <div class="input-group">
             <input type="search" class="form-control" placeholder="search..." v-on:keyup.enter="setSearch">
             <div class="input-group-append">
-              <button class="dropdown-toggle rounded-lg btn-primary border-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item"><b-icon icon="arrow-up" variant="success"></b-icon>Price</a>
-                <a class="dropdown-item"><b-icon icon="arrow-down" variant="danger"></b-icon>Price</a>
-                <div role="separator" class="dropdown-divider"></div>
-                <a class="dropdown-item"><b-icon icon="arrow-up" variant="success"></b-icon>Name</a>
-                <a class="dropdown-item"><b-icon icon="arrow-down" variant="danger"></b-icon>Name</a>
-              </div>
+              <b-form-select @change="setSort">
+                <b-form-select-option value="name" >Name</b-form-select-option>
+                <b-form-select-option value="price" >Price</b-form-select-option>
+              </b-form-select>
             </div>
           </div>
         </div>
@@ -70,6 +66,11 @@ import {
 } from 'vuex'
 export default {
   name: 'Navbar',
+  // props: {
+  //   setSort: {
+  //     type: Function
+  //   }
+  // },
   data () {
     return {}
   },
@@ -78,6 +79,11 @@ export default {
     setSearch (e) {
       console.log(e)
       this.handleSearch(e.target.value)
+    },
+    setSort (e) {
+      console.log(e.target.value)
+      const url = `sort/asc/${e.target.value}`
+      this.getProduct(url)
     },
     LogOut () {
       localStorage.removeItem('token')

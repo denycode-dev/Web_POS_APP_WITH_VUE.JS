@@ -143,9 +143,22 @@ export default new Vuex.Store({
           })
       })
     },
-    getProduct (context) {
+    // getProduct (context) {
+    //   return new Promise((resolve, reject) => {
+    //     axios.get(`${process.env.VUE_APP_BASE_URL}/products`)
+    //       .then((res) => {
+    //         context.commit('setProduct', res.data.result)
+    //         resolve(res.data.result)
+    //       })
+    //       .catch((err) => {
+    //         console.log(err)
+    //         reject(err)
+    //       })
+    //   })
+    // },
+    getProduct (context, payload) {
       return new Promise((resolve, reject) => {
-        axios.get(`${process.env.VUE_APP_BASE_URL}/products`)
+        axios.get(`${process.env.VUE_APP_BASE_URL}/products/${payload || ''}`)
           .then((res) => {
             context.commit('setProduct', res.data.result)
             resolve(res.data.result)
@@ -197,7 +210,7 @@ export default new Vuex.Store({
     },
     deleteProduct (context, payload) {
       return new Promise((resolve, reject) => {
-        axios.delete(`${process.env.VUE_APP_BASE_URL}/products/` + payload.id)
+        axios.delete(`${process.env.VUE_APP_BASE_URL}/products` + payload.id)
           .then((res) => {
             console.log(res)
             resolve(res.data.result)

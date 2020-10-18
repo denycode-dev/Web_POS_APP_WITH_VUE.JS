@@ -10,7 +10,7 @@
         <b-button class="mr-2 rounded-lg" variant="primary" @click="$emit('event-update', item)">
             <b-icon icon="pencil" variant="white"></b-icon> edit
         </b-button>
-        <b-button class="rounded-lg" variant="danger">
+        <b-button class="rounded-lg" variant="danger" @click="$emit('event-delete', product)">
             <b-icon icon="trash" variant="white"></b-icon> delete
         </b-button>
     </div>

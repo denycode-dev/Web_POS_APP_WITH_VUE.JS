@@ -22,7 +22,7 @@
     <div class="col-lg-7 bg-light pt-4">
       <div class="container text-center">
         <div class="row row-cols-1 row-cols-md-3 ml-1 mr-2 height-style overflow-auto">
-          <ItemCardEdit v-for="product in productstate" :item="product" :key="product.id" @select-product="addCart(product)" id="card" :per-page="perPage" :current-page="currentPage" @event-update="setUpdate" @event-delete="setDelete" />
+          <ItemCardEdit v-for="product in productstate" :item="product" :key="product.id" @select-product="addCart(product)" id="card" :per-page="perPage" :current-page="currentPage" @event-update="setUpdate" @event-delete="delProduct" />
           <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="card" class="justify-content-center fixed-bottom"></b-pagination>
         </div>
       </div>
@@ -34,7 +34,7 @@
     </div>
   </div>
   <ButtomNav />
-  <notifications animation-type="velocity" position="top left" class="mt-5 ml-5"/>
+  <notifications animation-type="velocity" position="top left" class="mt-5 ml-5" />
   <ModalAdd v-show="modalActive" :data="dataModal" @close-modal="toggleModal" @fire-event="handleEventModal" />
 </div>
 </template>
@@ -76,7 +76,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['getProduct', 'handleSearch', 'insertProduct', 'editProduct']),
+    ...mapActions(['getProduct', 'handleSearch', 'insertProduct', 'editProduct', 'deleteProduct']),
     ...mapMutations(['addCart']),
     toggleModal () {
       this.modalActive = !this.modalActive
@@ -87,7 +87,7 @@ export default {
     setSearch (e) {
       console.log(e)
       // this.handleSearch(e.target.value)
-      const url = `?search/${e.target.value}`
+      const url = `/search/${e.target.value}`
       this.getProduct(url)
     },
     checkProductActive (id) {
@@ -126,14 +126,25 @@ export default {
 
       this.editProduct(container)
         .then(res => {
+          this.modalActive = false
           this.clearModal()
-          this.data.modalActive = false
           this.getProduct()
           this.$store.dispatch('notify', 'Update data success')
         })
-        // .catch(() => {
-        //   this.$store.dispatch('notify', 'Update data failed')
-        // })
+        .catch(() => {
+          this.$store.dispatch('notify', 'Update data failed')
+        })
+    },
+    delProduct (product) {
+      const id = this.product.id
+      this.deleteProduct(id)
+        .then(res => {
+          this.getProduct()
+          this.$store.dispatch('notify', 'Delete data success')
+        })
+        .catch(() => {
+          this.$store.dispatch('notify', 'Delete data failed')
+        })
     },
     addProduct () {
       const data = new FormData()
@@ -141,13 +152,17 @@ export default {
       data.append('image', this.dataModal.image)
       data.append('price', this.dataModal.price)
       data.append('idCategory', this.dataModal.idCategory)
-
       this.insertProduct(data)
         .then(res => {
+          // console.log(res.result.status_code)
+          // if (res.result.status_code === 202) {
+          //   this.$store.dispatch('notify', 'Jpg format only')
+          // } else {
           this.modalActive = false
           this.clearModal()
           this.getProduct()
           this.$store.dispatch('notify', 'Add data success')
+          // }
         })
         .catch(() => {
           this.$store.dispatch('notify', 'Add data failed')

@@ -1,6 +1,6 @@
 <template>
 <div class="home">
-  <Navbar />
+  <Navbar/>
   <aside />
   <div class="row mt-5 articleParent">
     <!-- =============    Aside Bar   ============= -->
@@ -32,7 +32,7 @@
         </div>
       </div>
     </div>
-    <AsideCard :egptyCart="checkCart" :Cart="checkCart"/>
+    <AsideCard :egptyCart="egptyCart" :Cart="Cart"/>
   </div>
   <ButtomNav />
   <ModalAdd v-show="modalActive" :data="dataModal" @close-modal="toggleModal" @fire-event="addProduct" />
@@ -77,7 +77,7 @@ export default {
       perPage: 9,
       currentPage: 2,
       egptyCart: false,
-      Cart: false
+      Cart: true
     }
   },
   methods: {
@@ -91,45 +91,55 @@ export default {
     },
     setSearch (e) {
       console.log(e)
-      const url = `?search/${e.target.value}`
+      const url = `search/${e.target.value}`
+      this.getProduct(url)
+    },
+    setSort (e) {
+      console.log(e.target.value)
+      const url = `sort/asc/${e.target.value}`
       this.getProduct(url)
     },
     checkProductActive (id) {
       return this.getCart.find(item => {
         return item.id === id
       })
-    },
-    checkCart () {
-      if (this.countCart === !undefined) {
-        this.egptyCart = true
-        this.Cart = false
-      } else {
-        this.egptyCart = false
-        this.Cart = true
-      }
-    },
-    clearModal () {
-      this.dataModal.id = null
-      this.dataModal.name = ''
-      this.dataModal.price = ''
-      this.dataModal.image = null
-      this.dataModal.idCategory = null
-    },
-    addProduct () {
-      const data = new FormData()
-      data.append('name', this.dataModal.name)
-      data.append('image', this.dataModal.image)
-      data.append('price', this.dataModal.price)
-      data.append('idCategory', this.dataModal.idCategory)
-
-      this.insertProduct(data)
-        .then(res => {
-          this.data.modalActive = false
-          this.clearModal()
-          this.getProduct()
-          alert('add data success')
-        })
     }
+    // // checkCart () {
+    // //   if (this.countCart === !undefined) {
+    // //     this.egptyCart = true
+    // //     this.Cart = false
+    // //   } else {
+    // //     this.egptyCart = false
+    // //     this.Cart = true
+    // //   }
+    // // },
+    // clearModal () {
+    //   this.dataModal.id = null
+    //   this.dataModal.name = ''
+    //   this.dataModal.price = ''
+    //   this.dataModal.image = null
+    //   this.dataModal.idCategory = null
+    // },
+    // addProduct () {
+    //   const data = new FormData()
+    //   data.append('name', this.dataModal.name)
+    //   data.append('image', this.dataModal.image)
+    //   data.append('price', this.dataModal.price)
+    //   data.append('idCategory', this.dataModal.idCategory)
+
+    //   this.insertProduct(data)
+    //     .then(res => {
+    //       console.log(res.status)
+    //       if (!res.status === 'Failed') {
+    //         this.data.modalActive = false
+    //         this.clearModal()
+    //         this.getProduct()
+    //         alert('add data success')
+    //       } else {
+    //         alert('add data failed')
+    //       }
+    //     })
+    // }
   },
   computed: {
     ...mapGetters({
