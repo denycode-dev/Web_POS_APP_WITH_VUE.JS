@@ -9,19 +9,19 @@
             <div class="col-7 text-left">
               <h4 class="">{{item.name}}</h4>
               <div class="row mt-4">
-                <div class="col-7 text-center row p-0 ml-2">
-                  <b-button class="col-3 btn-success font-weight-bold btn-sm p-0" @click="plusMinPrice({type: '+', index})">+</b-button>
-                  <h5 class="col-4 mt-2 border-yellow">{{item.count}}</h5>
-                  <b-button class="col-3 btn-success font-weight-bold btn-sm p-0" @click="plusMinPrice({type: '-', index})">-</b-button>
+                <div class="col-5 text-center row p-0 ml-2">
+                  <b-button class="col-3 btn-success font-weight-bold btn-sm h-75" @click="plusMinPrice({type: '+', index})">+</b-button>
+                  <p class="ml-2 mr-2 font-weight-bold">{{item.count}}</p>
+                  <b-button class="col-3 btn-success font-weight-bold btn-sm h-75" @click="plusMinPrice({type: '-', index})">-</b-button>
                 </div>
-                <p class="col-5 count font-weight-bold">Rp.{{item.price * item.count}}</p>
+                <p class="col-7 font-weight-bold">{{item.price * item.count | currency}}</p>
               </div>
             </div>
           </div>
         </div>
       </div>
       <div class="mt-5 text-left">
-        <h5>Total : <span class="text-right">Rp. 105.000</span></h5>
+        <h5>Total : <span class="text-right">Rp. 150.000</span></h5>
         <p>*Belum termasuk ppn</p>
         <b-button block class="rounded btn-checkout" data-toggle="modal" data-target="#exampleModal">Checkout</b-button>
         <b-button block class="rounded btn-cancel">Cancel</b-button>
@@ -45,6 +45,7 @@ import {
   mapGetters,
   mapMutations
 } from 'vuex'
+
 export default {
   name: 'Cart',
   props: {
@@ -131,12 +132,6 @@ export default {
   height: 130px;
   object-fit: cover;
   border-radius: 20px;
-}
-
-.count {
-  font-size: 18px;
-  line-height: 26px;
-  color: #000000;
 }
 
 @media (max-width: 540px) {

@@ -59,10 +59,6 @@ export default {
     background-color: rgb(0, 0, 0, 0.3);
     z-index: 1;
     position: absolute;
-    /* background-image: url('../../assets/icons/tick.svg'); */
-    /* background-repeat: no-repeat; */
-    /* background-position-x: center; */
-    /* background-position-y: center; */
 }
 
 @media (max-width: 1200px) {

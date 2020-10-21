@@ -5,7 +5,6 @@
             <img src="../../assets/icons/add.svg" width="30" height="30" loading="lazy">
         </a>
         <router-link to='/history'><img src="../../assets/icons/clipboard.svg" width="30" height="30" alt="" loading="lazy"></router-link>
-        <a data-toggle="modal" data-target="#searchModal"><img src="../../assets/icons/search2.svg" width="30" height="30" alt="" loading="lazy"></a >
         <router-link to='/main'>
             <img src="../../assets/icons/fork.svg" width="30" height="30" loading="lazy">
         </router-link>

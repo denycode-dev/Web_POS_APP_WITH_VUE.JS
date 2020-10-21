@@ -3,7 +3,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add Item</h5>
+        <h5 class="modal-title" id="exampleModalLabel">{{data.id ? 'Update Product': 'Add New Product'}}</h5>
         <button type="button" class="close" @click="$emit('close-modal')" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

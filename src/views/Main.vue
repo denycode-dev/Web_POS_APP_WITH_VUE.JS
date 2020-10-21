@@ -27,12 +27,11 @@
     <div class="col-lg-7 bg-light pt-4">
       <div class="container text-center">
         <div class="row row-cols-1 row-cols-md-3 ml-1 mr-2 height-style overflow-auto">
-          <ItemCard v-for="product in productstate" :item="product" :key="product.id" @select-product="addCart(product)" :active="checkProductActive(product.id)" id="card" :per-page="perPage" :current-page="currentPage" />
-          <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="card" align="center" class="fixed-bottom"></b-pagination>
+          <ItemCard v-for="product in productstate" :item="product" :key="product.id" @select-product="addCart(product)" :active="checkProductActive(product.id)"/>
         </div>
       </div>
     </div>
-    <AsideCard :egptyCart="egptyCart" :Cart="Cart"/>
+    <AsideCard :egptyCart="checkCart" :Cart="Cart"/>
   </div>
   <ButtomNav />
   <ModalAdd v-show="modalActive" :data="dataModal" @close-modal="toggleModal" @fire-event="addProduct" />
@@ -74,8 +73,6 @@ export default {
       invoices: [],
       username: '',
       password: '',
-      perPage: 9,
-      currentPage: 2,
       egptyCart: false,
       Cart: true
     }
@@ -104,15 +101,15 @@ export default {
         return item.id === id
       })
     }
-    // // checkCart () {
-    // //   if (this.countCart === !undefined) {
-    // //     this.egptyCart = true
-    // //     this.Cart = false
-    // //   } else {
-    // //     this.egptyCart = false
-    // //     this.Cart = true
-    // //   }
-    // // },
+    // checkCart () {
+    //   if (this.countCart === '') {
+    //     this.egptyCart = true
+    //     this.Cart = false
+    //   } else {
+    //     this.egptyCart = false
+    //     this.Cart = true
+    //   }
+    // }
     // clearModal () {
     //   this.dataModal.id = null
     //   this.dataModal.name = ''
